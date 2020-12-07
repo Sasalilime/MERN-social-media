@@ -1,6 +1,10 @@
 const PostModel = require('../models/post.model');
 const UserModel = require('../models/user.model');
+const {uploadErrors} = require("../utils/errors.utils");
 const ObjectID = require('mongoose').Types.ObjectId;
+const fs = require("fs");
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
 
 
 module.exports.readPost = (req, res) => {
@@ -11,9 +15,38 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
+    let filename;
+
+    if(req.file !== null) {
+        try {
+            if (
+                req.file.detectedMimeType !== "image/jpg" &&
+                req.file.detectedMimeType !== "image/png" &&
+                req.file.detectedMimeType !== "image/jpeg"
+            )
+                throw Error("invalid file");
+
+            if (req.file.size > 500000)
+                throw Error("max size");
+        } catch (err) {
+            const errors = uploadErrors(err);
+            return res.status(201).json({errors});
+        }
+        filename = req.file.posterId + Date.now() + ".jpg";
+
+        await pipeline(
+            req.file.stream,
+            fs.createWriteStream(
+                `${__dirname}/../client/public/uploads/posts/${fileName}`
+            )
+        );
+    }
+
+
     const NewPost = new PostModel({
         posterId: req.body.posterId,
         message: req.body.message,
+        picture: req.file !== null ? './uploads/posts/' +filename:"",
         video: req.body.video,
         likers: [],
         comments: []
@@ -161,7 +194,7 @@ module.exports.editCommentPost = (req, res, next) => {
                     comment._id.equals(req.body.commentId);
 
                     if (!theComment) return res.status(404).send("Comment not found");
-                     else theComment.text = req.body.text;
+                    else theComment.text = req.body.text;
 
                     return docs.save((err) => {
                         if (!err)
@@ -191,7 +224,7 @@ module.exports.deleteCommentPost = (req, res, next) => {
                     },
                 },
             },
-            { new: true },
+            {new: true},
             (err, docs) => {
                 if (!err)
                     return res.send(docs);

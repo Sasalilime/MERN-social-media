@@ -30,7 +30,7 @@ app.get('jwtid', ensureAuthenticated,(req, res) =>{
     res.status(200).send(res.locals.user._id);
 });
 
-//routes
+//Routes
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 

@@ -22,7 +22,7 @@ module.exports.signUp = async (req, res) => {
         res.status(200).send({errors});
     }
 
-}
+};
 
 
 module.exports.signIn = async (req, res) => {
@@ -37,9 +37,9 @@ module.exports.signIn = async (req, res) => {
         const errors = signInErrors(err);
         res.status(200).json({errors});
     }
-}
+};
 
 module.exports.logout = async (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});
     res.redirect('/');
-}
+};

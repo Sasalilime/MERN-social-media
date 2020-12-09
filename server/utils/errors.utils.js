@@ -20,13 +20,13 @@ module.exports.signUpErrors = (err) => {
 };
 
 
-module.exports.signInErrors = () => {
+module.exports.signInErrors = (err) => {
     let errors = {email: '', password:''};
 
-    if (errors.message.includes('email'))
+    if (err.message.includes('email'))
         errors.email = "Email inconnu.";
 
-    if (errors.message.includes('password'))
+    if (err.message.includes('password'))
         errors.password= "Le mot de passe ne correspond pas.";
 
     return errors;

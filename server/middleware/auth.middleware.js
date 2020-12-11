@@ -22,17 +22,18 @@ module.exports.checkUser = (req, res, next) => {
 }
 
 module.exports.ensureAuthenticated = (req, res, next) => {
- const token = req.cookies.jwt;
- if (token) {
-     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-         if (err) {
-             console.log(err);
-         } else {
-             console.log(decodedToken.id);
-             next();
-         }
-     });
- }else{
-     console.log('no token');
- }
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err);
+                res.send(200).json('no token')
+            } else {
+                console.log(decodedToken.id);
+                next();
+            }
+        });
+    } else {
+        console.log('No token');
+    }
 };

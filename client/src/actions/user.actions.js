@@ -9,7 +9,7 @@ export const getUser = (userId) => {
         return axios
             .get(`${process.env.REACT_APP_API_URL}api/user/${userId}`)
             .then((res) => {
-                dispatch({type: GET_USER, playload: res.data});
+                dispatch({type: GET_USER, payload: res.data});
             })
             .catch((err) => {
                 console.log(err);

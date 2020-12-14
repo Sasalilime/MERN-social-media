@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from "axios";
 import {useState} from "react";
+import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
+    const [formSubmit, setFormSubmit] = useState(false);
     const [pseudo, setPseudo] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,6 +44,8 @@ const SignUpForm = () => {
                             pseudoError.innerHTML = res.data.errors.pseudo;
                             emailError.innerHTML = res.data.errors.email;
                             passwordError.innerHTML = res.data.errors.password;
+                        }else {
+                            setFormSubmit(true);
                         }
                     })
                     .catch((error) => {
@@ -53,6 +57,15 @@ const SignUpForm = () => {
 
 
     return (
+        <React.Fragment>
+            {formSubmit ? (
+                <React.Fragment>
+                <SignInForm/>
+                <span/>
+                <h4 className="success">Enregistrement réussi, veuillez-vous connecter.</h4>
+                </React.Fragment>
+
+            ): (
         <form action="" onSubmit={handleSignup} id="signup-form">
             <label htmlFor="pseudo">Pseudo</label>
             <br/>
@@ -89,6 +102,8 @@ const SignUpForm = () => {
             <div className="terms error"></div>
             <input type="submit" value="Valider l'inscription"/>
         </form>
+                )}
+        </React.Fragment>
     );
 };
 

@@ -14,22 +14,18 @@ const App = () => {
                 url: `${process.env.REACT_APP_API_URL}jwtid`,
                 withCredentials: true
             })
-            .then ((res) => {
-                setUserId(res.data);
-            })
-            .catch((err) => {
-                console.log(err)
-            });
+            .then ((res) =>
+                setUserId(res.data))
+            .catch((err) =>
+                console.log('No token'));
         };
         fetchToken();
     }, [userId]);
 
     return (
-        <div>
             <UserIdContext.Provider value={userId}>
                 <Routes/>
             </UserIdContext.Provider>
-        </div>
     );
 };
 

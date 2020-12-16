@@ -23,14 +23,14 @@ module.exports.updateUser = async (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknow: " + req.params.id);
     try {
-        await UserModel.findByIdAndUpdate(
+        await UserModel.findOneAndUpdate(
             {_id: req.params.id},
             {
                 $set: {
                     bio: req.body.bio
                 }
             },
-            {new: true, upsert: true, setDefautsOnInsert: true},
+            {new: true, upsert: true, setDefaultsOnInsert: true},
             (err, docs) => {
                 if(!err) return res.send(docs);
                 if (err) return res.status(500).send({message: err});

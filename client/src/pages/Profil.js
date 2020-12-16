@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import Log from "../components/Log";
 import {UserIdContext} from "../components/AppContext";
 import UpdateProfil from "../components/Profil/UpdateProfil";
+import UploadImg from "../components/Profil/UploadImg";
 
 
 const Profil = () => {

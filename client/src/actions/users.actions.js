@@ -7,9 +7,10 @@ export const getUsers = () => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/user`)
       .then((response) => {
-        dispatch({ type: GET_USERS, payload: response.data }).catch((error) => {
-          console.log(error);
+        dispatch({ type: GET_USERS, payload: response.data })
+      })
+        .catch((error) => {
+            console.log(error);
         });
-      });
   };
 };

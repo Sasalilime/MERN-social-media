@@ -27,7 +27,7 @@ const App = () => {
 
         if (userId)
             dispatch(getUser(userId));
-    }, [userId]);
+    }, [userId, dispatch]);
 
     return (
             <UserIdContext.Provider value={userId}>

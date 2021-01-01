@@ -2,15 +2,23 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {isEmpty, timestampParser} from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
+import {addComment, getPosts} from "../../actions/post.actions";
+import EditDeleteComment from "./EditDeleteComment";
 
-const PostComments = ({post}) => {
+const PostComment = ({post}) => {
     const [text, setText] = useState('');
     const usersData = useSelector((state => state.usersReducer));
     const userData = useSelector((state => state.userReducer));
     const dispatch = useDispatch();
 
-    const handleComment = () => {
+    const handleComment = (e) => {
+        e.preventDefault();
 
+        if (text) {
+            dispatch(addComment(post._id, userData._id, text, userData.pseudo))
+                .then(() => dispatch(getPosts()))
+                .then(() => setText(''));
+        }
     }
 
     return (
@@ -39,6 +47,7 @@ const PostComments = ({post}) => {
                             <span>{timestampParser(comment.timestamp)}</span>
                         </div>
                         <p>{comment.text}</p>
+                        <EditDeleteComment comment={comment} postId={post._id}/>
                     </div>
                 </div>);
             })}
@@ -59,4 +68,4 @@ const PostComments = ({post}) => {
     );
 };
 
-export default PostComments;
+export default PostComment;

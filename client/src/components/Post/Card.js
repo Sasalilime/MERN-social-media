@@ -5,7 +5,7 @@ import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import {updatePost} from "../../actions/post.actions";
 import DeletePost from "./DeletePost";
-import PostComments from "./PostComments";
+import PostComment from "./PostComment";
 
 const Card = ({post}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -103,7 +103,7 @@ const Card = ({post}) => {
                             <LikeButton post={post}/>
                             <img src="./img/icons/share.svg" alt="share"/>
                         </div>
-                        {showComments && <PostComments post={post}/>}
+                        {showComments && <PostComment post={post}/>}
                     </div>
                 </React.Fragment>
             )}

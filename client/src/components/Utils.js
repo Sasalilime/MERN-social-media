@@ -17,6 +17,22 @@ export const dateParser = (numberToDate) => {
 }
 
 
+export const timestampParser = (numberToDate) =>{
+    let options = {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        weekday: "long",
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+    };
+
+    let date = new Date(numberToDate).toLocaleDateString("fr-FR", options);
+
+    return date.toString();
+}
+
 export const isEmpty = (value) => {
     return value === undefined ||
         value === null ||

@@ -58,7 +58,7 @@ const NewPostForm = () => {
                     let embed = findLink[i].replace("watch?v=", "embed/");
                     setVideo(embed.split("&")[0]);
                     findLink.splice(i, 1);
-                    setMessage(findLink.join(" "));
+                    setMessage(findLink.join(" ") );
                     setPostPicture('');
                 }
             }

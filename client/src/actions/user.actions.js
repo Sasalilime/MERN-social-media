@@ -64,7 +64,7 @@ export const updateBio = (id, bio) => {
 export const followUser = (followerId, idToFollow) => {
     return (dispatch) => {
         return axios({
-            method: 'patch',
+            method: "patch",
             url: `${process.env.REACT_APP_API_URL}api/user/follow/` + followerId,
             data: {idToFollow}
         }).then((res) => {
@@ -79,7 +79,7 @@ export const unfollowUser = (followerId, idToUnfollow) => {
     return (dispatch) => {
         return axios({
             method: 'patch',
-            url: `${process.env.REACT_APP_API_URL}api/user/follow/` + followerId,
+            url: `${process.env.REACT_APP_API_URL}api/user/unfollow/` + followerId,
             data: {idToUnfollow}
         }).then((res) => {
             dispatch({type: UNFOLLOW_USER, payload: {idToUnfollow}})

@@ -45,8 +45,7 @@ const NewPostForm = () => {
 
 
     useEffect(() => {
-        if (!isEmpty(userData))
-            setIsLoading(false);
+        if (!isEmpty(userData)) setIsLoading(false);
 
         const handleVideo = () => {
             let findLink = message.split(" ");
@@ -58,7 +57,7 @@ const NewPostForm = () => {
                     let embed = findLink[i].replace("watch?v=", "embed/");
                     setVideo(embed.split("&")[0]);
                     findLink.splice(i, 1);
-                    setMessage(findLink.join(" ") );
+                    setMessage(findLink.join(" "));
                     setPostPicture('');
                 }
             }
@@ -71,7 +70,7 @@ const NewPostForm = () => {
             {isLoading ? (
                 <i className="fas fa-spinner fa-pulse"></i>
             ) : (
-                <React.Fragment>
+                <>
                     <div className="data">
                         <p>
                             <span>{userData.following ? userData.following.length : 0}</span>{" "}
@@ -128,7 +127,7 @@ const NewPostForm = () => {
                         <div className="footer-form">
                             <div className="icon">
                                 {isEmpty(video) && (
-                                    <React.Fragment>
+                                    <>
                                         <img src="./img/icons/picture.svg" alt="img" />
                                         <input
                                             type="file"
@@ -137,7 +136,7 @@ const NewPostForm = () => {
                                             accept=".jpg, .jpeg, .png"
                                             onChange={(e) => handlePicture(e)}
                                         />
-                                    </React.Fragment>
+                                    </>
                                 )}
                                 {video && (
                                     <button onClick={() => setVideo("")}>Supprimer video</button>
@@ -157,7 +156,7 @@ const NewPostForm = () => {
                             </div>
                         </div>
                     </div>
-                </React.Fragment>
+                </>
             )}
         </div>
     );

@@ -9,6 +9,8 @@ import { getUsers } from "./actions/users.actions";
 import App from "./App";
 import rootReducer from "./reducers";
 import "./styles/index.scss";
+import allPostsReducer from "./reducers/allPosts.reducer";
+import {getPosts} from "./actions/post.actions";
 
 const store = createStore(
   rootReducer,
@@ -16,6 +18,8 @@ const store = createStore(
 );
 
 store.dispatch(getUsers());
+store.dispatch(getPosts());
+
 
 ReactDOM.render(
   <Provider store={store}>
